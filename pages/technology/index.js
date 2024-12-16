@@ -38,21 +38,42 @@ function setResponsiveImage(index) {
 
 // Event listener untuk circle button
 document.querySelectorAll('.circle').forEach(circle => {
-  circle.addEventListener('click', function() {
+  circle.addEventListener('click', function () {
     const index = this.getAttribute('data-index') - 1;
-    
-    // Ganti teks dan deskripsi
-    document.getElementById('title').textContent = content[index].title;
-    document.getElementById('description').textContent = content[index].description;
-    
-    // Set gambar berdasarkan ukuran layar
+
+    // Ambil elemen yang akan dianimasikan
+    const titleElement = document.getElementById('title');
+    const descriptionElement = document.getElementById('description');
+    const imageElement = document.getElementById('rocket-image');
+
+    // Hapus kelas animasi jika masih ada
+    titleElement.classList.remove('slide-down');
+    descriptionElement.classList.remove('slide-down');
+    imageElement.classList.remove('slide-down');
+
+    // Ganti konten dengan data baru
+    titleElement.textContent = content[index].title;
+    descriptionElement.textContent = content[index].description;
     setResponsiveImage(index);
-    
+
+    // Tambahkan event listener untuk memastikan kelas dihapus setelah animasi selesai
+    [titleElement, descriptionElement, imageElement].forEach(el => {
+      el.addEventListener('animationend', () => {
+        el.classList.remove('slide-down');
+      });
+    });
+
+    // Tambahkan kembali kelas animasi untuk memicu animasi
+    titleElement.classList.add('slide-down');
+    descriptionElement.classList.add('slide-down');
+    imageElement.classList.add('slide-down');
+
     // Hapus class 'active' dari semua circle dan tambahkan ke yang dipilih
     document.querySelectorAll('.circle').forEach(c => c.classList.remove('active'));
     this.classList.add('active');
   });
 });
+
 
 // Deteksi perubahan ukuran layar
 window.addEventListener('resize', () => {

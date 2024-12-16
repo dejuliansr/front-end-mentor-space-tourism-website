@@ -37,18 +37,39 @@ document.addEventListener('DOMContentLoaded', function() {
   links.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-
+  
+      // Hapus kelas "active" dari semua link dan tambahkan ke link yang diklik
       links.forEach(l => l.classList.remove('active'));
       this.classList.add('active');
-
+  
       const destination = this.getAttribute('data-destination');
       const info = destinations[destination];
-
-      planetInfo.querySelector('h2').textContent = info.name;
-      planetInfo.querySelector('h4').textContent = info.description;
-      planetInfo.querySelector('.distance p').textContent = info.distance;
-      planetInfo.querySelector('.travel-time p').textContent = info.travelTime;
-      planetImage.src = info.image;
+  
+      // Tambahkan animasi "slide-out" ke info lama
+      planetInfo.classList.add('slide-out');
+      planetImage.classList.add('slide-out');
+  
+      // Tunggu sampai animasi selesai sebelum mengganti konten
+      setTimeout(() => {
+        // Update informasi destinasi
+        planetInfo.querySelector('h2').textContent = info.name;
+        planetInfo.querySelector('h4').textContent = info.description;
+        planetInfo.querySelector('.distance p').textContent = info.distance;
+        planetInfo.querySelector('.travel-time p').textContent = info.travelTime;
+        planetImage.src = info.image;
+  
+        // Hapus animasi "slide-out" dan tambahkan animasi "slide-in"
+        planetInfo.classList.remove('slide-out');
+        planetImage.classList.remove('slide-out');
+        planetInfo.classList.add('slide-in');
+        planetImage.classList.add('slide-in');
+      }, 500); // Durasi animasi "slide-out" (0.5s)
+      
+      // Hapus kelas "slide-in" setelah animasi selesai untuk memungkinkan animasi dimainkan ulang
+      setTimeout(() => {
+        planetInfo.classList.remove('slide-in');
+        planetImage.classList.remove('slide-in');
+      }, 1000); // Total durasi animasi (slide-out + slide-in)
     });
   });
 });

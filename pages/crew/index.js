@@ -26,13 +26,41 @@ const crewData = [
 ];
 
 function changeCrew(index) {
-  document.querySelector('.role').textContent = crewData[index].role;
-  document.querySelector('.name').textContent = crewData[index].name;
-  document.querySelector('.description').textContent = crewData[index].description;
-  document.getElementById('crew-image').src = crewData[index].image;
+  const role = document.querySelector('.role');
+  const name = document.querySelector('.name');
+  const description = document.querySelector('.description');
+  const image = document.getElementById('crew-image');
+  const crewDetails = document.querySelector('.crew-details');
+  const crewImage = document.querySelector('.crew-image');
 
-  // Update active dot
+  // Tambahkan animasi keluar
+  crewDetails.classList.add('slide-out');
+  crewImage.classList.add('slide-out');
+
+  // Tunggu sampai animasi keluar selesai sebelum mengganti konten
+  setTimeout(() => {
+    // Ganti data kru
+    role.textContent = crewData[index].role;
+    name.textContent = crewData[index].name;
+    description.textContent = crewData[index].description;
+    image.src = crewData[index].image;
+
+    // Hapus animasi keluar dan tambahkan animasi masuk
+    crewDetails.classList.remove('slide-out');
+    crewDetails.classList.add('slide-in');
+    crewImage.classList.remove('slide-out');
+    crewImage.classList.add('slide-in');
+  }, 500); // Sesuai dengan durasi animasi (0.5s)
+
+  // Perbarui dot aktif
   const dots = document.querySelectorAll('.dot');
-  dots.forEach(dot => dot.classList.remove('dot-active'));
+  dots.forEach((dot) => dot.classList.remove('dot-active'));
   dots[index].classList.add('dot-active');
 }
+
+// Hapus kelas animasi setelah animasi selesai
+document.querySelectorAll('.crew-details, .crew-image').forEach((element) => {
+  element.addEventListener('animationend', () => {
+    element.classList.remove('slide-in');
+  });
+});

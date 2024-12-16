@@ -190,6 +190,21 @@ header {
   height: auto;
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.5s ease-in-out;
+}
+
 @media (max-width: 1200px) {
   body {
     background-image: url('../../starter-code/assets/technology/background-technology-tablet.jpg');
