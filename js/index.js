@@ -36,3 +36,16 @@ navLinks.forEach(link => {
     link.parentElement.classList.add('active'); // Tambahkan kelas 'active' ke elemen <li>
   }
 });
+
+// Tambahkan animasi saat halaman dimuat
+window.addEventListener('DOMContentLoaded', () => {
+  const heroSection = document.querySelector('.hero');
+
+  // Tambahkan kelas scale-in
+  heroSection.classList.add('scale-in');
+
+  // Hapus kelas scale-in setelah animasi selesai
+  heroSection.addEventListener('animationend', () => {
+    heroSection.classList.remove('scale-in');
+  });
+});

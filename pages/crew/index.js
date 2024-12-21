@@ -34,8 +34,8 @@ function changeCrew(index) {
   const crewImage = document.querySelector('.crew-image');
 
   // Tambahkan animasi keluar
-  crewDetails.classList.add('slide-out');
-  crewImage.classList.add('slide-out');
+  crewDetails.classList.add('scale-out');
+  crewImage.classList.add('scale-out');
 
   // Tunggu sampai animasi keluar selesai sebelum mengganti konten
   setTimeout(() => {
@@ -46,10 +46,10 @@ function changeCrew(index) {
     image.src = crewData[index].image;
 
     // Hapus animasi keluar dan tambahkan animasi masuk
-    crewDetails.classList.remove('slide-out');
-    crewDetails.classList.add('slide-in');
-    crewImage.classList.remove('slide-out');
-    crewImage.classList.add('slide-in');
+    crewDetails.classList.remove('scale-out');
+    crewDetails.classList.add('scale-in');
+    crewImage.classList.remove('scale-out');
+    crewImage.classList.add('scale-in');
   }, 500); // Sesuai dengan durasi animasi (0.5s)
 
   // Perbarui dot aktif
@@ -61,6 +61,24 @@ function changeCrew(index) {
 // Hapus kelas animasi setelah animasi selesai
 document.querySelectorAll('.crew-details, .crew-image').forEach((element) => {
   element.addEventListener('animationend', () => {
-    element.classList.remove('slide-in');
+    element.classList.remove('scale-in');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const crewDetails = document.querySelector('.crew-details');
+  const crewImage = document.querySelector('.crew-image');
+
+  // Tambahkan animasi masuk saat halaman pertama kali dimuat
+  crewDetails.classList.add('scale-in');
+  crewImage.classList.add('scale-in');
+
+  // Hapus kelas animasi setelah animasi selesai
+  crewDetails.addEventListener('animationend', () => {
+    crewDetails.classList.remove('scale-in');
+  });
+
+  crewImage.addEventListener('animationend', () => {
+    crewImage.classList.remove('scale-in');
   });
 });

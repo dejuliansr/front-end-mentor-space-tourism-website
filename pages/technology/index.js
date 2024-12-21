@@ -86,3 +86,31 @@ window.addEventListener('load', () => {
   document.querySelector('.circle[data-index="1"]').classList.add('active');
   setResponsiveImage(0);
 });
+
+window.addEventListener('load', () => {
+  // Set tombol pertama aktif
+  const firstCircle = document.querySelector('.circle[data-index="1"]');
+  firstCircle.classList.add('active');
+
+  // Ambil elemen yang akan dianimasikan
+  const titleElement = document.getElementById('title');
+  const descriptionElement = document.getElementById('description');
+  const imageElement = document.getElementById('rocket-image');
+
+  // Set konten awal
+  titleElement.textContent = content[0].title;
+  descriptionElement.textContent = content[0].description;
+  setResponsiveImage(0);
+
+  // Tambahkan kelas animasi
+  titleElement.classList.add('slide-down');
+  descriptionElement.classList.add('slide-down');
+  imageElement.classList.add('slide-down');
+
+  // Pastikan kelas animasi dihapus setelah selesai
+  [titleElement, descriptionElement, imageElement].forEach(el => {
+    el.addEventListener('animationend', () => {
+      el.classList.remove('slide-down');
+    });
+  });
+});

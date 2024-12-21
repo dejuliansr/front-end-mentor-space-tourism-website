@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const destinations = {
     moon: {
       name: "MOON",
@@ -34,21 +34,42 @@ document.addEventListener('DOMContentLoaded', function() {
   const planetInfo = document.getElementById('planet-info');
   const planetImage = document.getElementById('planet-image');
 
+  // Animasi awal saat halaman dimuat
+  const initialDestination = destinations.moon; // Atur destinasi default (Moon)
+  setTimeout(() => {
+    planetInfo.querySelector('h2').textContent = initialDestination.name;
+    planetInfo.querySelector('h4').textContent = initialDestination.description;
+    planetInfo.querySelector('.distance p').textContent = initialDestination.distance;
+    planetInfo.querySelector('.travel-time p').textContent = initialDestination.travelTime;
+    planetImage.src = initialDestination.image;
+
+    // Tambahkan animasi "scale-in" setelah konten dimuat
+    planetInfo.classList.add('scale-in');
+    planetImage.classList.add('scale-in');
+
+    // Hapus kelas "scale-in" setelah animasi selesai
+    setTimeout(() => {
+      planetInfo.classList.remove('scale-in');
+      planetImage.classList.remove('scale-in');
+    }, 500); // Durasi animasi "scale-in" (0.5s)
+  }, 100); // Tambahkan sedikit jeda agar animasi terlihat lebih halus
+
+  // Event listener untuk tab destinasi
   links.forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       e.preventDefault();
-  
+
       // Hapus kelas "active" dari semua link dan tambahkan ke link yang diklik
       links.forEach(l => l.classList.remove('active'));
       this.classList.add('active');
-  
+
       const destination = this.getAttribute('data-destination');
       const info = destinations[destination];
-  
-      // Tambahkan animasi "slide-out" ke info lama
-      planetInfo.classList.add('slide-out');
-      planetImage.classList.add('slide-out');
-  
+
+      // Tambahkan animasi "scale-out" ke info lama
+      planetInfo.classList.add('scale-out');
+      planetImage.classList.add('scale-out');
+
       // Tunggu sampai animasi selesai sebelum mengganti konten
       setTimeout(() => {
         // Update informasi destinasi
@@ -57,19 +78,19 @@ document.addEventListener('DOMContentLoaded', function() {
         planetInfo.querySelector('.distance p').textContent = info.distance;
         planetInfo.querySelector('.travel-time p').textContent = info.travelTime;
         planetImage.src = info.image;
-  
-        // Hapus animasi "slide-out" dan tambahkan animasi "slide-in"
-        planetInfo.classList.remove('slide-out');
-        planetImage.classList.remove('slide-out');
-        planetInfo.classList.add('slide-in');
-        planetImage.classList.add('slide-in');
-      }, 500); // Durasi animasi "slide-out" (0.5s)
-      
-      // Hapus kelas "slide-in" setelah animasi selesai untuk memungkinkan animasi dimainkan ulang
+
+        // Hapus animasi "scale-out" dan tambahkan animasi "scale-in"
+        planetInfo.classList.remove('scale-out');
+        planetImage.classList.remove('scale-out');
+        planetInfo.classList.add('scale-in');
+        planetImage.classList.add('scale-in');
+      }, 500); // Durasi animasi "scale-out" (0.5s)
+
+      // Hapus kelas "scale-in" setelah animasi selesai untuk memungkinkan animasi dimainkan ulang
       setTimeout(() => {
-        planetInfo.classList.remove('slide-in');
-        planetImage.classList.remove('slide-in');
-      }, 1000); // Total durasi animasi (slide-out + slide-in)
+        planetInfo.classList.remove('scale-in');
+        planetImage.classList.remove('scale-in');
+      }, 1000); // Total durasi animasi (scale-out + scale-in)
     });
   });
 });

@@ -121,6 +121,12 @@ header {
   color: hsl(231, 77%, 90%);
 }
 
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .crew-info {
   display: flex;
   justify-content: space-between;
@@ -188,35 +194,38 @@ header {
   background-color: white;
 }
 
-@keyframes slideIn {
+/* Animasi masuk (dari kecil ke ukuran normal) */
+@keyframes scaleIn {
   from {
-    transform: translateX(100%);
     opacity: 0;
+    transform: scale(0.5);
   }
   to {
-    transform: translateX(0);
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes slideOut {
+/* Animasi keluar (dari ukuran normal ke kecil) */
+@keyframes scaleOut {
   from {
-    transform: translateX(0);
     opacity: 1;
+    transform: scale(1);
   }
   to {
-    transform: translateX(-100%);
     opacity: 0;
+    transform: scale(0.5);
   }
 }
 
-.slide-in {
-  animation: slideIn 0.5s ease-out forwards;
+.scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
 }
 
-.slide-out {
-  animation: slideOut 0.5s ease-out forwards;
+.scale-out {
+  animation: scaleOut 0.5s ease-out forwards;
 }
+
 
 
 @media (max-width: 1200px) {
