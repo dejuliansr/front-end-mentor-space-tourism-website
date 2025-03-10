@@ -220,6 +220,18 @@ header {
   animation: scaleOut 0.5s ease-out forwards;
 }
 
+@keyframes spin-slow {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.rotate-slow {
+  animation: spin-slow 20s linear infinite;
+}
 
 @media (max-width: 1200px) {
   body {
